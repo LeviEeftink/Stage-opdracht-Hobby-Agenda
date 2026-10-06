@@ -139,6 +139,7 @@ export function HobbyAgenda() {
   return (
     <main className="app-shell">
       <header className="app-header">
+        <p className="eyebrow eyebrow-light">Mijn vrije tijd</p>
         <h1>Hobby Agenda</h1>
         <p className="muted">Tijd voor wat je leuk vindt.</p>
       </header>

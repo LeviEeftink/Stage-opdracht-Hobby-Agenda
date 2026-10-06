@@ -1,18 +1,38 @@
-/* Native elements with a small, neutral foundation; Tailwind handles structure. */
+/* Webbio-huisstijl: primair blauw, lichtgrijze secties, witte kaarten met zachte schaduw. */
 @layer theme, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities);
 
+:root {
+  --wb-primary: #0000ff;
+  --wb-primary-600: #0000cc;
+  --wb-primary-700: #000099;
+  --wb-primary-100: #d9d9ff;
+  --wb-primary-50: #f0f0ff;
+  --wb-ink: #0f0f0f;
+  --wb-muted: #5c5f66;
+  --wb-faint: #898e99;
+  --wb-bg: #f4f5f7;
+  --wb-border: #e4e6eb;
+  --wb-border-strong: #ced2d9;
+  --wb-success: #008554;
+  --wb-danger: #de0000;
+}
+
 * {
   box-sizing: border-box;
 }
+::selection {
+  background: var(--wb-primary-100);
+}
 body {
   margin: 0;
-  background: #f8f9fb;
-  color: #242831;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
+  background: var(--wb-bg);
+  color: var(--wb-ink);
+  font-family: 'SUSE', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
 }
 h1,
 h2,
@@ -21,15 +41,20 @@ p {
   margin: 0;
 }
 h1 {
-  font-size: 22px;
+  font-size: 30px;
+  line-height: 1.15;
   letter-spacing: -0.5px;
+  font-weight: 700;
 }
 h2 {
-  font-size: 21px;
-  letter-spacing: -0.4px;
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  font-weight: 700;
 }
 h3 {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
 }
 button,
 input,
@@ -38,56 +63,98 @@ textarea {
   font: inherit;
 }
 button {
-  min-height: 40px;
-  padding: 9px 14px;
-  border: 1px solid #dce0e6;
-  border-radius: 7px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid var(--wb-border-strong);
+  border-radius: 999px;
   background: white;
   color: inherit;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 button:hover {
-  background: #f0f2f5;
+  background: var(--wb-bg);
 }
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 button.primary {
-  background: #292e38;
+  background: var(--wb-primary);
   color: white;
-  border-color: #292e38;
+  border-color: var(--wb-primary);
 }
 button.primary:hover {
-  background: #414958;
+  background: var(--wb-primary-600);
+  border-color: var(--wb-primary-600);
+}
+button.primary:active {
+  background: var(--wb-primary-700);
+  border-color: var(--wb-primary-700);
 }
 button.danger {
-  color: #a23838;
+  color: var(--wb-danger);
+}
+button.danger:hover {
+  background: #fdeeee;
 }
 :focus-visible {
-  outline: 2px solid #4368b0;
+  outline: 2px solid var(--wb-primary);
   outline-offset: 3px;
 }
 .muted {
-  color: #69717e;
+  color: var(--wb-muted);
 }
 .app-shell {
-  max-width: 1120px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 28px 60px;
+  padding: 0 24px 64px;
 }
 .app-header {
-  padding: 28px 0;
-  border-bottom: 1px solid #e2e5eb;
+  margin-top: 24px;
+  padding: 44px 36px;
+  border-radius: 32px;
   margin-bottom: 32px;
+  color: white;
+  background:
+    radial-gradient(
+      60% 120% at 12% 0%,
+      rgba(128, 128, 255, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      55% 120% at 88% 100%,
+      rgba(0, 0, 0, 0.22),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #1a1aff 0%, var(--wb-primary) 55%, #0000d6 100%);
 }
-.app-header p {
-  margin-top: 4px;
+.app-header h1 {
+  color: white;
+  margin-top: 8px;
+}
+.app-header .muted {
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 6px;
+  font-size: 17px;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--wb-primary-700);
+}
+.eyebrow-light {
+  color: var(--wb-primary-100);
 }
 .hobby-sidebar h2 {
-  font-size: 13px;
-  color: #69717e;
-  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--wb-muted);
+  font-weight: 700;
   margin: 4px 12px 14px;
 }
 .hobby-filter {
@@ -95,14 +162,24 @@ button.danger {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border: 0;
+  border: 1px solid transparent;
+  border-radius: 12px;
   background: transparent;
   text-align: left;
   padding: 11px 12px;
+  font-weight: 400;
+}
+.hobby-filter:hover {
+  background: white;
 }
 .hobby-filter[aria-pressed='true'] {
-  background: #e9edf2;
+  background: var(--wb-primary-50);
+  border-color: var(--wb-primary-100);
+  color: var(--wb-primary-700);
   font-weight: 600;
+}
+.hobby-filter[aria-pressed='true'] .count {
+  color: var(--wb-primary-700);
 }
 .hobby-name,
 .hobby-badge {
@@ -116,20 +193,21 @@ button.danger {
 }
 .color-dot {
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 .count {
-  color: #69717e;
+  color: var(--wb-faint);
   font-size: 12px;
   flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
 }
 .add-hobby {
   width: 100%;
   margin-top: 18px;
-  background: transparent;
+  background: white;
 }
 .agenda-content {
   min-width: 0;
@@ -141,50 +219,57 @@ button.danger {
   margin-top: 5px;
 }
 .agenda-toolbar {
-  border-bottom: 1px solid #e2e5eb;
+  border-bottom: 1px solid var(--wb-border);
   padding-bottom: 13px;
   margin-bottom: 24px;
 }
 .view-switch {
   padding: 4px;
-  border: 1px solid #e2e5eb;
-  border-radius: 8px;
-  background: #edf0f4;
+  border: 1px solid var(--wb-border);
+  border-radius: 999px;
+  background: var(--wb-border);
 }
 .view-switch button {
-  min-height: 32px;
-  padding: 5px 12px;
+  min-height: 36px;
+  padding: 6px 18px;
   border: 0;
+  border-radius: 999px;
   background: transparent;
-  color: #69717e;
+  color: var(--wb-muted);
+}
+.view-switch button:hover {
+  color: var(--wb-ink);
 }
 .view-switch button[aria-pressed='true'] {
   background: white;
-  color: #242831;
-  box-shadow: 0 1px 3px #24283114;
+  color: var(--wb-ink);
+  box-shadow: 0 1px 3px rgba(15, 15, 15, 0.12);
 }
 .calendar-navigation {
   margin-bottom: 16px;
 }
 .calendar-navigation h3 {
-  font-size: 18px;
+  font-size: 19px;
 }
 .calendar-navigation button {
-  min-width: 40px;
+  min-width: 44px;
+  padding: 10px 14px;
 }
 .calendar-scroll {
   max-width: 100%;
   overflow-x: auto;
-  border: 1px solid #e2e5eb;
-  border-radius: 9px;
+  border: 1px solid var(--wb-border);
+  border-radius: 24px;
   background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 .calendar-panel {
-  padding: 12px;
+  padding: 16px;
   min-width: 640px;
-  --fc-classic-border: #e2e5eb;
-  --fc-classic-foreground: #242831;
-  --fc-classic-today: #edf3f9;
+  --fc-classic-border: var(--wb-border);
+  --fc-classic-foreground: var(--wb-ink);
+  --fc-classic-today: var(--wb-primary-50);
+  --fc-now-indicator-color: var(--wb-primary);
 }
 .calendar-month .calendar-panel {
   min-width: 560px;
@@ -232,21 +317,23 @@ button.danger {
 .text-button {
   background: transparent;
   border: 0;
-  color: #596273;
+  color: var(--wb-primary-600);
   padding: 4px 0;
   min-height: 32px;
   text-align: left;
+  font-weight: 600;
 }
 .text-button:hover {
   background: transparent;
-  color: #242831;
+  color: var(--wb-primary-700);
   text-decoration: underline;
 }
 .panel {
-  border: 1px solid #e2e5eb;
-  border-radius: 10px;
+  border: 1px solid var(--wb-border);
+  border-radius: 24px;
   background: white;
   padding: 28px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 .empty-state {
   padding: 64px 24px;
@@ -266,13 +353,14 @@ button.danger {
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid #e2e5eb;
-  border-radius: 9px;
+  border: 1px solid var(--wb-border);
+  border-radius: 16px;
   background: white;
   overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 .activity-list li + li {
-  border-top: 1px solid #e9ecf0;
+  border-top: 1px solid var(--wb-border);
 }
 .activity-row {
   display: grid;
@@ -284,12 +372,16 @@ button.danger {
   border: 0;
   border-radius: 0;
   text-align: left;
+  font-weight: 400;
+}
+.activity-row:hover {
+  background: var(--wb-bg);
 }
 .activity-row:focus-visible {
   outline-offset: -3px;
 }
 .activity-row time {
-  color: #69717e;
+  color: var(--wb-muted);
   font-variant-numeric: tabular-nums;
 }
 .activity-title {
@@ -298,28 +390,28 @@ button.danger {
 }
 .hobby-badge {
   font-size: 12px;
-  color: #596273;
+  color: var(--wb-muted);
   overflow-wrap: anywhere;
 }
 .activity-row .hobby-badge {
   max-width: 180px;
 }
 .message {
-  padding: 12px 15px;
-  border: 1px solid #dce0e6;
-  border-radius: 7px;
+  padding: 12px 16px;
+  border: 1px solid var(--wb-border-strong);
+  border-radius: 12px;
   background: white;
   margin-bottom: 18px;
 }
 .message.error {
-  border-color: #e9caca;
-  background: #fff6f6;
-  color: #8f3434;
+  border-color: #f0b6b6;
+  background: #fdeeee;
+  color: #a11717;
 }
 .message.success {
-  border-color: #cddfd4;
-  background: #f2f8f4;
-  color: #306647;
+  border-color: #b7dfc9;
+  background: #e9f6ef;
+  color: #005c3d;
 }
 .message ul {
   margin: 0;
@@ -355,35 +447,42 @@ button.danger {
   display: block;
   width: 100%;
   min-width: 0;
-  padding: 11px 12px;
-  border: 1px solid #dce0e6;
-  border-radius: 6px;
+  padding: 11px 14px;
+  border: 1px solid var(--wb-border-strong);
+  border-radius: 10px;
   background: white;
   color: inherit;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--wb-primary);
+  outline: 3px solid var(--wb-primary-100);
+  outline-offset: 0;
 }
 .field textarea {
   resize: vertical;
 }
 [aria-invalid='true'] {
-  border-color: #a23838 !important;
+  border-color: var(--wb-danger) !important;
 }
 .form-actions {
-  border-top: 1px solid #e2e5eb;
+  border-top: 1px solid var(--wb-border);
   padding-top: 20px;
   margin-top: 24px;
 }
 dialog {
-  border: 1px solid #e2e5eb;
-  border-radius: 12px;
+  border: 1px solid var(--wb-border);
+  border-radius: 24px;
   padding: 28px;
   width: min(500px, calc(100% - 32px));
   max-height: calc(100dvh - 48px);
   overflow: auto;
   color: inherit;
-  box-shadow: 0 12px 48px #2428311a;
+  box-shadow: 0 24px 64px rgba(0, 0, 153, 0.18);
 }
 dialog::backdrop {
-  background: #252a354d;
+  background: rgba(15, 15, 15, 0.45);
 }
 dialog > p.muted {
   margin-top: 6px;
@@ -391,17 +490,15 @@ dialog > p.muted {
 dialog h2 {
   overflow-wrap: anywhere;
 }
-.eyebrow {
-  color: #69717e;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
 dl {
   margin: 24px 0;
 }
 dt {
   font-size: 12px;
-  color: #69717e;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--wb-muted);
   margin-top: 16px;
 }
 dd {
@@ -417,18 +514,20 @@ dd {
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 8px 10px;
-  border: 1px solid #dce0e6;
-  border-radius: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--wb-border-strong);
+  border-radius: 999px;
   cursor: pointer;
+  font-weight: 400;
 }
 .color-option:has(input:checked) {
-  background: #f0f2f5;
-  border-color: #7a8492;
+  background: var(--wb-primary-50);
+  border-color: var(--wb-primary);
+  font-weight: 600;
 }
 .color-option input {
   margin: 0;
-  accent-color: #292e38;
+  accent-color: var(--wb-primary);
 }
 .delete-confirmation {
   width: 100%;
@@ -438,22 +537,23 @@ dd {
 }
 @media (max-width: 767px) {
   .app-shell {
-    padding: 0 18px 40px;
+    padding: 0 16px 40px;
   }
   .app-header {
-    padding: 22px 0;
+    padding: 32px 24px;
     margin-bottom: 22px;
+    border-radius: 24px;
   }
   .hobby-sidebar {
-    border-bottom: 1px solid #e2e5eb;
+    border-bottom: 1px solid var(--wb-border);
     padding-bottom: 20px;
   }
   .hobby-sidebar h2 {
     margin-left: 0;
   }
   .hobby-filter {
-    border: 1px solid #e2e5eb;
-    padding: 8px 10px;
+    border: 1px solid var(--wb-border);
+    padding: 8px 12px;
     max-width: 100%;
   }
   .add-hobby {
