@@ -6,10 +6,33 @@
 * {
   box-sizing: border-box;
 }
+:root {
+  --page: #f4f5f7;
+  --surface: #ffffff;
+  --text: #0f0f0f;
+  --muted: #5c5f66;
+  --border: #e4e6eb;
+  --control-border: #ced2d9;
+  --hover: #e4e6eb;
+  --selected: #d9d9ff;
+  --soft-accent: #f0f0ff;
+}
+:root:has(.app-shell[data-theme='dark']) {
+  color-scheme: dark;
+  --page: #17181c;
+  --surface: #23252b;
+  --text: #f2f3f5;
+  --muted: #b3b7c0;
+  --border: #41444d;
+  --control-border: #555963;
+  --hover: #343740;
+  --selected: #37385e;
+  --soft-accent: #30314d;
+}
 body {
   margin: 0;
-  background: #f4f5f7;
-  color: #0f0f0f;
+  background: var(--page);
+  color: var(--text);
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
   font-size: 16px;
@@ -44,15 +67,15 @@ textarea {
 button {
   min-height: 48px;
   padding: 12px 22px;
-  border: 1px solid #ced2d9;
+  border: 1px solid var(--control-border);
   border-radius: 10px;
-  background: white;
+  background: var(--surface);
   color: inherit;
   font-weight: 600;
   cursor: pointer;
 }
 button:hover {
-  background: #e4e6eb;
+  background: var(--hover);
 }
 button:disabled {
   opacity: 0.5;
@@ -74,7 +97,7 @@ button.danger {
   outline-offset: 2px;
 }
 .muted {
-  color: #5c5f66;
+  color: var(--muted);
 }
 .app-shell {
   max-width: 1100px;
@@ -88,13 +111,21 @@ button.danger {
   padding: 36px 32px;
   margin: 24px 0 32px;
 }
+.app-header {
+  position: relative;
+}
+.theme-toggle {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
 .app-header p {
   margin-top: 8px;
   font-size: 18px;
 }
 .hobby-sidebar h2 {
   font-size: 14px;
-  color: #5c5f66;
+  color: var(--muted);
   font-weight: 700;
   margin: 4px 12px 14px;
 }
@@ -112,7 +143,7 @@ button.danger {
   width: 100%;
 }
 .hobby-filter[aria-pressed='true'] {
-  background: #d9d9ff;
+  background: var(--selected);
   font-weight: 700;
 }
 .hobby-name,
@@ -133,14 +164,14 @@ button.danger {
   flex-shrink: 0;
 }
 .count {
-  color: #5c5f66;
+  color: var(--muted);
   font-size: 14px;
   flex-shrink: 0;
 }
 .add-hobby {
   width: 100%;
   margin-top: 18px;
-  background: white;
+  background: var(--surface);
 }
 .agenda-content {
   min-width: 0;
@@ -153,15 +184,15 @@ button.danger {
   font-size: 17px;
 }
 .agenda-toolbar {
-  border-bottom: 1px solid #e4e6eb;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 14px;
   margin-bottom: 24px;
 }
 .view-switch {
   padding: 4px;
-  border: 1px solid #e4e6eb;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: #e4e6eb;
+  background: var(--hover);
 }
 .view-switch button {
   min-height: 40px;
@@ -169,11 +200,11 @@ button.danger {
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #5c5f66;
+  color: var(--muted);
 }
 .view-switch button[aria-pressed='true'] {
-  background: white;
-  color: #0f0f0f;
+  background: var(--surface);
+  color: var(--text);
 }
 .calendar-navigation {
   margin-bottom: 16px;
@@ -187,16 +218,17 @@ button.danger {
 .calendar-scroll {
   max-width: 100%;
   overflow-x: auto;
-  border: 1px solid #e4e6eb;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: white;
+  background: var(--surface);
 }
 .calendar-panel {
   padding: 16px;
   min-width: 640px;
-  --fc-classic-border: #e4e6eb;
-  --fc-classic-foreground: #0f0f0f;
-  --fc-classic-today: #f0f0ff;
+  --fc-classic-border: var(--border);
+  --fc-classic-foreground: var(--text);
+  --fc-classic-background: var(--surface);
+  --fc-classic-today: var(--soft-accent);
   --fc-now-indicator-color: #0000ff;
 }
 .calendar-month .calendar-panel {
@@ -256,9 +288,9 @@ button.danger {
   text-decoration: underline;
 }
 .panel {
-  border: 1px solid #e4e6eb;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: white;
+  background: var(--surface);
   padding: 32px;
 }
 .empty-state {
@@ -278,13 +310,13 @@ button.danger {
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid #e4e6eb;
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: white;
+  background: var(--surface);
   overflow: hidden;
 }
 .activity-list li + li {
-  border-top: 1px solid #e4e6eb;
+  border-top: 1px solid var(--border);
 }
 .activity-row {
   display: grid;
@@ -299,13 +331,13 @@ button.danger {
   font-weight: 400;
 }
 .activity-row:hover {
-  background: #f4f5f7;
+  background: var(--page);
 }
 .activity-row:focus-visible {
   outline-offset: -3px;
 }
 .activity-row time {
-  color: #5c5f66;
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 .activity-title {
@@ -315,7 +347,7 @@ button.danger {
 }
 .hobby-badge {
   font-size: 14px;
-  color: #5c5f66;
+  color: var(--muted);
   overflow-wrap: anywhere;
 }
 .activity-row .hobby-badge {
@@ -323,9 +355,9 @@ button.danger {
 }
 .message {
   padding: 14px 18px;
-  border: 1px solid #ced2d9;
+  border: 1px solid var(--control-border);
   border-radius: 10px;
-  background: white;
+  background: var(--surface);
   margin-bottom: 20px;
   font-size: 16px;
 }
@@ -375,9 +407,9 @@ button.danger {
   width: 100%;
   min-width: 0;
   padding: 14px;
-  border: 1px solid #ced2d9;
+  border: 1px solid var(--control-border);
   border-radius: 10px;
-  background: white;
+  background: var(--surface);
   color: inherit;
   font-size: 16px;
 }
@@ -388,12 +420,12 @@ button.danger {
   border-color: #de0000 !important;
 }
 .form-actions {
-  border-top: 1px solid #e4e6eb;
+  border-top: 1px solid var(--border);
   padding-top: 22px;
   margin-top: 26px;
 }
 dialog {
-  border: 1px solid #e4e6eb;
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 32px;
   width: min(520px, calc(100% - 32px));
@@ -411,7 +443,7 @@ dialog h2 {
   overflow-wrap: anywhere;
 }
 .eyebrow {
-  color: #5c5f66;
+  color: var(--muted);
   font-size: 14px;
   font-weight: 700;
   margin-bottom: 8px;
@@ -422,7 +454,7 @@ dl {
 }
 dt {
   font-size: 14px;
-  color: #5c5f66;
+  color: var(--muted);
   font-weight: 700;
   margin-top: 18px;
 }
@@ -440,13 +472,13 @@ dd {
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  border: 1px solid #ced2d9;
+  border: 1px solid var(--control-border);
   border-radius: 10px;
   cursor: pointer;
   font-weight: 400;
 }
 .color-option:has(input:checked) {
-  background: #f0f0ff;
+  background: var(--soft-accent);
   border-color: #0000ff;
   font-weight: 600;
 }
@@ -467,22 +499,26 @@ dd {
     padding: 0 16px 40px;
   }
   .app-header {
-    padding: 28px 24px;
+    padding: 72px 24px 28px;
     margin-bottom: 22px;
     border-radius: 12px;
   }
   h1 {
     font-size: 28px;
   }
+  .theme-toggle {
+    top: 12px;
+    right: 12px;
+  }
   .hobby-sidebar {
-    border-bottom: 1px solid #e4e6eb;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 20px;
   }
   .hobby-sidebar h2 {
     margin-left: 0;
   }
   .hobby-filter {
-    border: 1px solid #e4e6eb;
+    border: 1px solid var(--border);
     padding: 12px;
     max-width: 100%;
   }

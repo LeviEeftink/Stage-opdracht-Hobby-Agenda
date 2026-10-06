@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 import type { Activity } from '@/payload-types'
 import {
   deleteActivity,
@@ -29,7 +29,21 @@ import { ActivityDetail } from './ActivityDetail'
 import { HobbyForm } from './HobbyForm'
 import { AgendaCalendar } from './AgendaCalendar'
 
+const themeKey = 'hobby-agenda-theme'
+function subscribeToTheme(onChange: () => void) {
+  window.addEventListener('storage', onChange)
+  window.addEventListener('hobby-agenda-theme-change', onChange)
+  return () => {
+    window.removeEventListener('storage', onChange)
+    window.removeEventListener('hobby-agenda-theme-change', onChange)
+  }
+}
+function getThemeSnapshot() {
+  return window.localStorage.getItem(themeKey) === 'dark'
+}
+
 export function HobbyAgenda() {
+  const darkMode = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => false)
   const [activities, setActivities] = useState<Activity[]>([])
   const [hobbies, setHobbies] = useState<HobbyOption[]>(HOBBIES)
   const [creatingHobby, setCreatingHobby] = useState(false)
@@ -73,6 +87,12 @@ export function HobbyAgenda() {
         }),
     [],
   )
+
+  function toggleTheme() {
+    const next = !darkMode
+    window.localStorage.setItem(themeKey, next ? 'dark' : 'light')
+    window.dispatchEvent(new Event('hobby-agenda-theme-change'))
+  }
 
   useEffect(() => {
     const controller = new AbortController()
@@ -137,10 +157,13 @@ export function HobbyAgenda() {
   }
 
   return (
-    <main className="app-shell">
+    <main className="app-shell" data-theme={darkMode ? 'dark' : 'light'}>
       <header className="app-header">
         <h1>Hobby Agenda</h1>
         <p>Tijd voor wat je leuk vindt.</p>
+        <button className="theme-toggle" type="button" onClick={toggleTheme} aria-pressed={darkMode}>
+          {darkMode ? 'Lichte modus' : 'Donkere modus'}
+        </button>
       </header>
       {loading ? (
         <p role="status" className="panel">
