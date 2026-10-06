@@ -57,7 +57,13 @@ export function readHobbyCache(): HobbyOption[] {
       window.localStorage.getItem(HOBBY_CACHE_KEY) || 'null',
     )
     if (!Array.isArray(data) || !data.every(isHobby)) return HOBBIES
-    const seededValues = new Set(['sport', 'muziek', 'lezen', 'gamen'])
+    const seededValues = new Set([
+      'sport',
+      'muziek',
+      'lezen',
+      'gamen',
+      'custom-spelletjes spelen',
+    ])
     return data.filter((hobby) => !seededValues.has(hobby.value))
   } catch {
     return HOBBIES
