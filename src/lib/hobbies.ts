@@ -13,12 +13,7 @@ export type HobbyColor = (typeof HOBBY_COLORS)[number]['value']
 export type HobbyOption = { value: string; label: string; color: HobbyColor }
 export type HobbyInput = Pick<HobbyOption, 'label' | 'color'>
 
-export const HOBBIES: HobbyOption[] = [
-  { value: 'sport', label: 'Sport', color: 'groen' },
-  { value: 'muziek', label: 'Muziek', color: 'paars' },
-  { value: 'lezen', label: 'Lezen', color: 'geel' },
-  { value: 'gamen', label: 'Gamen', color: 'blauw' },
-]
+export const HOBBIES: HobbyOption[] = []
 
 export const HOBBY_CACHE_KEY = 'hobby-agenda.hobbies.v1'
 
@@ -61,7 +56,9 @@ export function readHobbyCache(): HobbyOption[] {
     const data: unknown = JSON.parse(
       window.localStorage.getItem(HOBBY_CACHE_KEY) || 'null',
     )
-    return Array.isArray(data) && data.every(isHobby) ? data : HOBBIES
+    if (!Array.isArray(data) || !data.every(isHobby)) return HOBBIES
+    const seededValues = new Set(['sport', 'muziek', 'lezen', 'gamen'])
+    return data.filter((hobby) => !seededValues.has(hobby.value))
   } catch {
     return HOBBIES
   }
