@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    hobbies: Hobby;
     activities: Activity;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -77,6 +78,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    hobbies: HobbiesSelect<false> | HobbiesSelect<true>;
     activities: ActivitiesSelect<false> | ActivitiesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -145,13 +147,25 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hobbies".
+ */
+export interface Hobby {
+  id: number;
+  label: string;
+  value: string;
+  color: 'groen' | 'blauw' | 'paars' | 'oranje' | 'roze' | 'geel';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "activities".
  */
 export interface Activity {
   id: number;
   title: string;
   startsAt: string;
-  hobby: 'sport' | 'muziek' | 'lezen' | 'gamen';
+  hobby: string;
   notes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -183,6 +197,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'hobbies';
+        value: number | Hobby;
       } | null)
     | ({
         relationTo: 'activities';
@@ -252,6 +270,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hobbies_select".
+ */
+export interface HobbiesSelect<T extends boolean = true> {
+  label?: T;
+  value?: T;
+  color?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
