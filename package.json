@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.13.0" },
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "setup": "node scripts/setup.mjs",
     "dev": "next dev --webpack --hostname 127.0.0.1",
@@ -15,6 +17,7 @@
     "generate:importmap": "payload generate:importmap"
   },
   "dependencies": {
+    "@fullcalendar/react": "7.1.0",
     "@payloadcms/db-sqlite": "3.90.2",
     "@payloadcms/next": "3.90.2",
     "graphql": "16.11.0",
@@ -22,12 +25,19 @@
     "next": "16.3.8",
     "payload": "3.90.2",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "temporal-polyfill": "1.0.1"
   },
   "overrides": {
-    "payload": { "undici": "7.30.0" },
-    "monaco-editor": { "dompurify": "3.4.16" },
-    "@payloadcms/next": { "sass": "1.105.1" }
+    "payload": {
+      "undici": "7.30.0"
+    },
+    "monaco-editor": {
+      "dompurify": "3.4.16"
+    },
+    "@payloadcms/next": {
+      "sass": "1.105.1"
+    }
   },
   "devDependencies": {
     "@playwright/test": "1.63.0",
