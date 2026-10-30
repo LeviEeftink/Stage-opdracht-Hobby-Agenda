@@ -88,17 +88,17 @@ export function HobbyAgenda() {
     [],
   )
 
-  function toggleTheme() {
-    const next = !darkMode
-    window.localStorage.setItem(themeKey, next ? 'dark' : 'light')
-    window.dispatchEvent(new Event('hobby-agenda-theme-change'))
-  }
-
   useEffect(() => {
     const controller = new AbortController()
     void load(controller.signal)
     return () => controller.abort()
   }, [load])
+
+  function toggleTheme() {
+    const next = !darkMode
+    window.localStorage.setItem(themeKey, next ? 'dark' : 'light')
+    window.dispatchEvent(new Event('hobby-agenda-theme-change'))
+  }
 
   function updateActivities(items: Activity[]) {
     setActivities(sortActivities(items))
@@ -159,20 +159,18 @@ export function HobbyAgenda() {
   return (
     <main className="app-shell" data-theme={darkMode ? 'dark' : 'light'}>
       <header className="app-header">
-        <h1>Hobby Agenda</h1>
-        <p>Tijd voor wat je leuk vindt.</p>
+        <h1>Agenda Opdracht</h1>
         <button className="theme-toggle" type="button" onClick={toggleTheme} aria-pressed={darkMode}>
           {darkMode ? 'Lichte modus' : 'Donkere modus'}
         </button>
       </header>
       {loading ? (
         <p role="status" className="panel">
-          Agenda laden…
+          Agenda laden
         </p>
       ) : (
         <div className="grid gap-6 md:grid-cols-[220px_minmax(0,1fr)]">
           <aside className="hobby-sidebar" aria-labelledby="hobbies-heading">
-            <h2 id="hobbies-heading">Mijn hobby&apos;s</h2>
             <div
               className="flex flex-wrap gap-1 md:flex-col"
               aria-label="Filter op hobby"
@@ -260,12 +258,7 @@ export function HobbyAgenda() {
               <>
                 <div className="agenda-heading flex flex-wrap items-center justify-between gap-4">
                   <div>
-                    <h2>Mijn agenda</h2>
-                    <p className="muted">
-                      {hobby
-                        ? hobbyLabel(hobby, hobbies)
-                        : 'Al je activiteiten op één plek.'}
-                    </p>
+                    <h2>Agenda</h2>
                   </div>
                   <button
                     className="primary"

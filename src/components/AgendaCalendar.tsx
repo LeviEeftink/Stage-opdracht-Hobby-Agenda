@@ -174,11 +174,6 @@ export function AgendaCalendar({
           />
         </div>
       </div>
-      {!readOnly && (
-        <p className="calendar-hint muted">
-          Klik op een dag of tijdvak om een activiteit te plannen.
-        </p>
-      )}
     </section>
   )
 }

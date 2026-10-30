@@ -66,11 +66,6 @@ export function HobbyForm({ hobbies, onSave, onCancel }: Props) {
       <h2 id="hobby-heading">Hobby toevoegen</h2>
       <p className="muted">Geef je hobby een naam en een herkenbare kleur.</p>
       <form onSubmit={submit} noValidate>
-        {error && (
-          <p role="alert" className="message error" id="hobby-error">
-            {error}
-          </p>
-        )}
         <fieldset disabled={busy} className="form-fields">
           <div className="field">
             <label htmlFor="hobby-name">Naam *</label>
